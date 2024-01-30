@@ -1,3 +1,42 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+
+signup:
+    path: /signup
+    controller: App\Controller\SecurityController::signup
+
+signin:
+    path: /signin
+    controller: App\Controller\SecurityController::signin
+
+logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+loggedUser:
+    path: /loggedUser
+    controller: App\Controller\UserController::loggedUser
+    methods: GET
+
+article_all:
+    path: /article
+    controller: App\Controller\ArticleController::all
+    methods: GET
+
+article_create:
+    path: /article/create
+    controller: App\Controller\ArticleController::create
+    methods: POST
+
+article_show:
+    path: /article/{id}
+    controller: App\Controller\ArticleController::show
+    methods: GET
+
+article_update:
+    path: /article/{id}/update
+    controller: App\Controller\ArticleController::update
+    methods: PUT
+
+article_delete:
+    path: /article/{id}/delete
+    controller: App\Controller\ArticleController::delete
+    methods: DELETE
