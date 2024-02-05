@@ -42,6 +42,28 @@ class Article
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    private $favorite = false;
+
+    public function isFavorite(): bool
+    {
+        return $this->favorite;
+    }
+
+    public function setFavorite(bool $favorite): self
+    {
+        $this->favorite = $favorite;
+
+        return $this;
+    }
+
+    public function getFavorite(): bool
+    {
+        return $this->favorite;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

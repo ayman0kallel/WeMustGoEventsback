@@ -23,6 +23,39 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * Toggle favorite status of an article.
+     *
+     * @Route("/article/{id}/favorite", name="app_article_toggle_favorite", methods={"PUT"})
+     */
+    public function toggleFavorite(int $id, Request $request): JsonResponse
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($id);
+
+        if (!$article) {
+            return $this->json(['message' => 'Article not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $isFavorite = $request->get('favorite', false);
+        $article->setFavorite($isFavorite);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Favorite status updated successfully']);
+    }
+
+    /**
+     * Get list of favorite articles.
+     *
+     * @Route("/favorite/articles", name="app_favorite_articles", methods={"GET"})
+     */
+    public function getFavoriteArticles(): JsonResponse
+    {
+        $favoriteArticles = $this->getDoctrine()->getRepository(Article::class)->findBy(['favorite' => true]);
+
+        return $this->json($favoriteArticles);
+    }
+
+    /**
      * @Route("/article/{id}", name="app_article_show", methods={"GET"})
      */
     public function show(int $id): JsonResponse
@@ -74,6 +107,8 @@ class ArticleController extends AbstractController
         $article->setDescription($data['description']);
         $article->setLocation($data['location']);
         $article->setDate(new \DateTime($data['date']));
+        $article->setImage($data['image']);
+        $article->setFavorite($data['favorite']);
 
         $entityManager->flush();
 

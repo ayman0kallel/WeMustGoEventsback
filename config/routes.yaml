@@ -40,3 +40,12 @@ article_delete:
     path: /article/{id}/delete
     controller: App\Controller\ArticleController::delete
     methods: DELETE
+favorite_toggle:
+    path: /article/{id}/favorite
+    controller: App\Controller\ArticleController::toggleFavorite
+    methods: PUT
+
+favorite_articles:
+    path: /favorite/articles
+    controller: App\Controller\ArticleController::getFavoriteArticles
+    methods: GET
